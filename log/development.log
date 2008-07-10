@@ -1,0 +1,756 @@
+
+
+Processing ProjectsController#index (for 127.0.0.1 at 2008-07-09 20:17:07) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"index", "controller"=>"projects"}
+  [4;36;1mSQL (0.000154)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.000081)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSetting Columns (0.000639)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000082)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.002004)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000898)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mAnonymousUser Columns (0.001040)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mAnonymousUser Load (0.000339)[0m   [0mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;36;1mSetting Load (0.000069)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'login_required') LIMIT 1[0m
+  [4;35;1mMember Columns (0.000908)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mSQL (0.000558)[0m   [0;1mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 2 AND (projects.status=1)) [0m
+  [4;35;1mProject Load (0.000417)[0m   [0mSELECT * FROM `projects` WHERE (projects.status=1 AND projects.is_public = 1) [0m
+  [4;36;1mProject Load (0.000320)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.id IN (NULL)) [0m
+Rendering template within layouts/base
+Rendering projects/index
+  [4;35;1mRole Load (0.000336)[0m   [0mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 2) LIMIT 1[0m
+  [4;36;1mRole Columns (0.000592)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mSetting Load (0.000137)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000073)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000087)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'self_registration') LIMIT 1[0m
+Completed in 0.53489 (1 reqs/sec) | Rendering: 0.02360 (4%) | DB: 0.00873 (1%) | 200 OK [http://localhost/projects]
+
+
+Processing ProjectsController#show (for 127.0.0.1 at 2008-07-09 20:17:09) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"show", "id"=>"projectx", "controller"=>"projects"}
+  [4;36;1mSetting Columns (0.000667)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000428)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.002187)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000913)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mAnonymousUser Columns (0.001086)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mAnonymousUser Load (0.000108)[0m   [0mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;36;1mSetting Load (0.000148)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'login_required') LIMIT 1[0m
+  [4;35;1mProject Load (0.000138)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.`identifier` = 'projectx') LIMIT 1[0m
+  [4;36;1mEnabledModule Load (0.000133)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.000557)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mRole Load (0.000136)[0m   [0;1mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 2) LIMIT 1[0m
+  [4;35;1mRole Columns (0.000743)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mMember Columns (0.000699)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mUser Columns (0.000804)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mMember Load Including Associations (0.000150)[0m   [0;1mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `users`.`id` AS t1_r0, `users`.`login` AS t1_r1, `users`.`hashed_password` AS t1_r2, `users`.`firstname` AS t1_r3, `users`.`lastname` AS t1_r4, `users`.`mail` AS t1_r5, `users`.`mail_notification` AS t1_r6, `users`.`admin` AS t1_r7, `users`.`status` AS t1_r8, `users`.`last_login_on` AS t1_r9, `users`.`language` AS t1_r10, `users`.`auth_source_id` AS t1_r11, `users`.`created_on` AS t1_r12, `users`.`updated_on` AS t1_r13, `users`.`type` AS t1_r14, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `users` ON `users`.id = `members`.user_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.project_id = 1 AND (users.status=1)) ORDER BY position[0m
+  [4;35;1mSQL (0.000097)[0m   [0mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 2 AND (projects.status=1)) [0m
+  [4;36;1mProject Load (0.000319)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.parent_id = 1 AND (projects.status=1 AND projects.is_public = 1)) ORDER BY name[0m
+  [4;35;1mNews Columns (0.000779)[0m   [0mSHOW FIELDS FROM `news`[0m
+  [4;36;1mNews Load (0.000125)[0m   [0;1mSELECT * FROM `news` WHERE (`news`.project_id = 1) ORDER BY news.created_on DESC LIMIT 5[0m
+  [4;35;1mTracker Columns (0.000586)[0m   [0mSHOW FIELDS FROM `trackers`[0m
+  [4;36;1mTracker Load Including Associations (0.000123)[0m   [0;1mSELECT `trackers`.`id` AS t0_r0, `trackers`.`name` AS t0_r1, `trackers`.`is_in_chlog` AS t0_r2, `trackers`.`position` AS t0_r3, `trackers`.`is_in_roadmap` AS t0_r4, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10 FROM `trackers` LEFT OUTER JOIN `projects_trackers` ON `projects_trackers`.tracker_id = `trackers`.id LEFT OUTER JOIN `projects` ON `projects`.id = `projects_trackers`.project_id WHERE (projects.id = 1 OR projects.parent_id = 1) ORDER BY trackers.position[0m
+  [4;35;1mSetting Load (0.000085)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'display_subprojects_issues') LIMIT 1[0m
+  [4;36;1mSQL (0.000578)[0m   [0;1mSELECT count(DISTINCT `issues`.id) AS count_all, tracker_id AS tracker_id FROM `issues` LEFT OUTER JOIN `projects` ON `projects`.id = `issues`.project_id LEFT OUTER JOIN `issue_statuses` ON `issue_statuses`.id = `issues`.status_id LEFT OUTER JOIN `trackers` ON `trackers`.id = `issues`.tracker_id WHERE (((projects.id = 1 OR projects.parent_id = 1)) AND issue_statuses.is_closed=0) AND (projects.status=1 AND projects.is_public = 1) GROUP BY tracker_id [0m
+  [4;35;1mTracker Load (0.000083)[0m   [0mSELECT * FROM `trackers` WHERE (`trackers`.`id` = 1) [0m
+  [4;36;1mSQL (0.002102)[0m   [0;1mSELECT count(DISTINCT `issues`.id) AS count_all, tracker_id AS tracker_id FROM `issues` LEFT OUTER JOIN `projects` ON `projects`.id = `issues`.project_id LEFT OUTER JOIN `issue_statuses` ON `issue_statuses`.id = `issues`.status_id LEFT OUTER JOIN `trackers` ON `trackers`.id = `issues`.tracker_id WHERE ((projects.id = 1 OR projects.parent_id = 1)) AND (projects.status=1 AND projects.is_public = 1) GROUP BY tracker_id [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `trackers` WHERE (`trackers`.`id` = 1) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 2) LIMIT 1[0m
+  [4;35;1mTimeEntry Columns (0.000959)[0m   [0mSHOW FIELDS FROM `time_entries`[0m
+  [4;36;1mSQL (0.000342)[0m   [0;1mSELECT sum(`time_entries`.hours) AS sum_hours FROM `time_entries` LEFT OUTER JOIN `projects` ON `projects`.id = `time_entries`.project_id WHERE ((projects.id = 1 OR projects.parent_id = 1)) AND (((projects.status=1) AND (projects.is_public = 1))) [0m
+Rendering template within layouts/base
+Rendering projects/show
+  [4;35;1mCustomValue Load (0.000146)[0m   [0mSELECT * FROM `custom_values` WHERE (`custom_values`.customized_id = 1 AND `custom_values`.customized_type = 'Project') [0m
+  [4;36;1mSetting Load (0.000125)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000127)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000117)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000096)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'self_registration') LIMIT 1[0m
+  [4;36;1mVersion Columns (0.000780)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000082)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000139)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mBoard Columns (0.000796)[0m   [0mSHOW FIELDS FROM `boards`[0m
+  [4;36;1mSQL (0.000080)[0m   [0;1mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;35;1mRepository Load (0.000100)[0m   [0mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.37603 (2 reqs/sec) | Rendering: 0.07074 (18%) | DB: 0.01766 (4%) | 200 OK [http://localhost/projects/show/projectx]
+
+
+Processing BoardsController#index (for 127.0.0.1 at 2008-07-09 20:17:15) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"project_id"=>"projectx", "action"=>"index", "controller"=>"boards"}
+  [4;36;1mSetting Columns (0.000678)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000080)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001218)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000932)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mAnonymousUser Columns (0.001210)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mAnonymousUser Load (0.000101)[0m   [0mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;36;1mSetting Load (0.000092)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'login_required') LIMIT 1[0m
+  [4;35;1mProject Load (0.000137)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.`identifier` = 'projectx') LIMIT 1[0m
+  [4;36;1mEnabledModule Load (0.000142)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.000664)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mRole Load (0.000133)[0m   [0;1mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 2) LIMIT 1[0m
+  [4;35;1mRole Columns (0.000763)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mBoard Columns (0.000792)[0m   [0;1mSHOW FIELDS FROM `boards`[0m
+  [4;35;1mSQL (0.000082)[0m   [0mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+Rendering template within layouts/base
+Rendering boards/index
+  [4;36;1mBoard Load (0.000462)[0m   [0;1mSELECT * FROM `boards` WHERE (`boards`.project_id = 1) ORDER BY position ASC[0m
+  [4;35;1mMessage Columns (0.000854)[0m   [0mSHOW FIELDS FROM `messages`[0m
+  [4;36;1mMessage Load (0.000244)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 50) [0m
+  [4;35;1mUser Columns (0.001164)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000126)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSetting Load (0.000088)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000076)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000089)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;36;1mMessage Load (0.000331)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 48) [0m
+  [4;35;1mSetting Load (0.000117)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000140)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000107)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'self_registration') LIMIT 1[0m
+  [4;36;1mMember Columns (0.000930)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mSQL (0.000128)[0m   [0mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 2 AND (projects.status=1)) [0m
+  [4;36;1mVersion Columns (0.000874)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000087)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000139)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mRepository Load (0.008233)[0m   [0mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.37685 (2 reqs/sec) | Rendering: 0.13349 (35%) | DB: 0.02121 (5%) | 200 OK [http://localhost/projects/projectx/boards]
+
+
+Processing BoardsController#show (for 127.0.0.1 at 2008-07-09 20:17:18) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"project_id"=>"projectx", "action"=>"show", "id"=>"1", "controller"=>"boards"}
+  [4;36;1mSetting Columns (0.000789)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000069)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001181)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000930)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mAnonymousUser Columns (0.001063)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mAnonymousUser Load (0.000102)[0m   [0mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;36;1mSetting Load (0.000069)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'login_required') LIMIT 1[0m
+  [4;35;1mProject Load (0.000125)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.`identifier` = 'projectx') LIMIT 1[0m
+  [4;36;1mBoard Columns (0.000992)[0m   [0;1mSHOW FIELDS FROM `boards`[0m
+  [4;35;1mBoard Load (0.000306)[0m   [0mSELECT * FROM `boards` WHERE (`boards`.`id` = 1 AND (`boards`.project_id = 1)) ORDER BY position ASC[0m
+  [4;36;1mEnabledModule Load (0.000137)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.000637)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mRole Load (0.000145)[0m   [0;1mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 2) LIMIT 1[0m
+  [4;35;1mRole Columns (0.000716)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mMessage Columns (0.000914)[0m   [0;1mSHOW FIELDS FROM `messages`[0m
+  [4;35;1mSQL (0.000415)[0m   [0mSELECT count(*) AS count_all FROM `messages` WHERE (`messages`.board_id = 1 AND (messages.parent_id IS NULL)) [0m
+  [4;36;1mSetting Load (0.000097)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'per_page_options') LIMIT 1[0m
+  [4;35;1mMessage Load (0.000497)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.board_id = 1 AND (messages.parent_id IS NULL)) ORDER BY messages.sticky DESC, messages.updated_on desc, messages.created_on DESC LIMIT 0, 25[0m
+  [4;36;1mUser Load (0.000126)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.id IN ('1','3')) [0m
+  [4;35;1mUser Columns (0.001065)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mMessage Load (0.000416)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.id IN ('46','47','37','50')) [0m
+  [4;35;1mUser Load (0.000219)[0m   [0mSELECT * FROM `users` WHERE (`users`.id IN ('1')) [0m
+Rendering template within layouts/base
+Rendering boards/show
+  [4;36;1mSetting Load (0.001913)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000112)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'attachment_max_size') LIMIT 1[0m
+Rendered attachments/_form (0.00330)
+Rendered messages/_form (0.01244)
+  [4;36;1mSetting Load (0.000128)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000104)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000090)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;35;1mMessage Load (0.000119)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 48) [0m
+  [4;36;1mMessage Load (0.000361)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 32) [0m
+  [4;35;1mMessage Load (0.000254)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 24) [0m
+  [4;36;1mMessage Load (0.000398)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 30) [0m
+  [4;35;1mSetting Load (0.000132)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000128)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000264)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'self_registration') LIMIT 1[0m
+  [4;36;1mMember Columns (0.000950)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mSQL (0.000123)[0m   [0mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 2 AND (projects.status=1)) [0m
+  [4;36;1mVersion Columns (0.000795)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000078)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000141)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000050)[0m   [0mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;36;1mRepository Load (0.000086)[0m   [0;1mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.33432 (2 reqs/sec) | Rendering: 0.09220 (27%) | DB: 0.01724 (5%) | 200 OK [http://localhost/projects/projectx/boards/show/1]
+
+
+Processing MessagesController#show (for 127.0.0.1 at 2008-07-09 20:17:21) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"show", "id"=>"48", "controller"=>"messages", "board_id"=>"1"}
+  [4;35;1mSetting Columns (0.000678)[0m   [0mSHOW FIELDS FROM `settings`[0m
+  [4;36;1mSQL (0.000086)[0m   [0;1mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;35;1mIssue Columns (0.001187)[0m   [0mSHOW FIELDS FROM `issues`[0m
+  [4;36;1mProject Columns (0.000914)[0m   [0;1mSHOW FIELDS FROM `projects`[0m
+  [4;35;1mAnonymousUser Columns (0.001105)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mAnonymousUser Load (0.000100)[0m   [0;1mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;35;1mSetting Load (0.000065)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'login_required') LIMIT 1[0m
+  [4;36;1mBoard Columns (0.000816)[0m   [0;1mSHOW FIELDS FROM `boards`[0m
+  [4;35;1mBoard Load (0.000085)[0m   [0mSELECT * FROM `boards` WHERE (`boards`.`id` = 1) [0m
+  [4;36;1mProject Load (0.000104)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.id IN ('1')) [0m
+  [4;35;1mMessage Columns (0.000792)[0m   [0mSHOW FIELDS FROM `messages`[0m
+  [4;36;1mMessage Load (0.000096)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 48 AND (`messages`.board_id = 1)) ORDER BY messages.created_on DESC[0m
+  [4;35;1mMessage Load (0.000104)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.id IN (NULL)) [0m
+  [4;36;1mEnabledModule Load (0.003508)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.001226)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mRole Load (0.000141)[0m   [0;1mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 2) LIMIT 1[0m
+  [4;35;1mRole Columns (0.000861)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mUserPreference Load (0.000359)[0m   [0;1mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 2) LIMIT 1[0m
+  [4;35;1mUserPreference Columns (0.000579)[0m   [0mSHOW FIELDS FROM `user_preferences`[0m
+Rendering template within layouts/base
+Rendering messages/show
+  [4;36;1mUser Columns (0.001068)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000120)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mSetting Load (0.000072)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000058)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000078)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000130)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;36;1mAttachment Columns (0.001098)[0m   [0;1mSHOW FIELDS FROM `attachments`[0m
+  [4;35;1mSQL (0.000076)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 48 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mSQL (0.000053)[0m   [0;1mSELECT count(*) AS count_all FROM `messages` WHERE (`messages`.parent_id = 48) [0m
+  [4;35;1mMessage Load (0.000081)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.parent_id = 48) ORDER BY messages.created_on ASC[0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSQL (0.000114)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 49 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSQL (0.000150)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 50 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mSetting Load (0.000088)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000101)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000106)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'self_registration') LIMIT 1[0m
+  [4;35;1mMember Columns (0.000776)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mSQL (0.000124)[0m   [0;1mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 2 AND (projects.status=1)) [0m
+  [4;35;1mVersion Columns (0.000760)[0m   [0mSHOW FIELDS FROM `versions`[0m
+  [4;36;1mSQL (0.000081)[0m   [0;1mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;35;1mWiki Load (0.000114)[0m   [0mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.000060)[0m   [0;1mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;35;1mRepository Load (0.000074)[0m   [0mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.33396 (2 reqs/sec) | Rendering: 0.07873 (23%) | DB: 0.01819 (5%) | 200 OK [http://localhost/boards/1/topics/show/48]
+
+
+Processing AccountController#login (for 127.0.0.1 at 2008-07-09 20:17:29) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"login", "controller"=>"account"}
+  [4;36;1mSetting Columns (0.000661)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000093)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001087)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.001093)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mAnonymousUser Columns (0.001119)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mAnonymousUser Load (0.000104)[0m   [0mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+Rendering template within layouts/base
+Rendering account/login
+  [4;35;1mSetting Load (0.000152)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'autologin') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000176)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'lost_password') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000100)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000098)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000061)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'self_registration') LIMIT 1[0m
+  [4;36;1mMember Columns (0.000733)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mSQL (0.000144)[0m   [0mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 2 AND (projects.status=1)) [0m
+Completed in 0.22959 (4 reqs/sec) | Rendering: 0.03185 (13%) | DB: 0.00562 (2%) | 200 OK [http://localhost/login]
+
+
+Processing AccountController#login (for 127.0.0.1 at 2008-07-09 20:17:34) [POST]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"login", "username"=>"jdoe", "controller"=>"account", "password"=>"[FILTERED]", "login"=>"Login »"}
+  [4;36;1mSetting Columns (0.002249)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000083)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001761)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000921)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mAnonymousUser Columns (0.001054)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mAnonymousUser Load (0.000104)[0m   [0mSELECT * FROM `users` WHERE ( (`users`.`type` = 'AnonymousUser' ) ) LIMIT 1[0m
+  [4;36;1mUser Load (0.000383)[0m   [0;1mSELECT * FROM `users` WHERE (login='jdoe') LIMIT 1[0m
+  [4;35;1mUser Columns (0.000908)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mSQL (0.000126)[0m   [0;1mBEGIN[0m
+  [4;35;1mUser Update (0.000373)[0m   [0mUPDATE `users` SET `last_login_on` = '2008-07-09 20:17:34', `updated_on` = '2008-07-09 20:17:34' WHERE `id` = 3[0m
+  [4;36;1mCustomField Load (0.000265)[0m   [0;1mSELECT * FROM `custom_fields` WHERE (type = 'UserCustomField') ORDER BY position[0m
+  [4;35;1mSQL (0.006546)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/my/page
+Completed in 0.29280 (3 reqs/sec) | DB: 0.01477 (5%) | 302 Found [http://localhost/login]
+
+
+Processing MyController#page (for 127.0.0.1 at 2008-07-09 20:17:34) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"page", "controller"=>"my"}
+  [4;36;1mSetting Columns (0.000789)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000095)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.002523)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000916)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mUser Columns (0.001044)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000293)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;36;1mUserPreference Load (0.001026)[0m   [0;1mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;35;1mUserPreference Columns (0.000596)[0m   [0mSHOW FIELDS FROM `user_preferences`[0m
+Rendering template within layouts/base
+Rendering my/page
+  [4;36;1mDocument Columns (0.000760)[0m   [0;1mSHOW FIELDS FROM `documents`[0m
+  [4;35;1mIssueStatus Columns (0.000926)[0m   [0mSHOW FIELDS FROM `issue_statuses`[0m
+  [4;36;1mTracker Columns (0.000656)[0m   [0;1mSHOW FIELDS FROM `trackers`[0m
+  [4;35;1mEnumeration Columns (0.000704)[0m   [0mSHOW FIELDS FROM `enumerations`[0m
+  [4;36;1mIssue Load Including Associations (0.001021)[0m   [0;1mSELECT `issues`.`id` AS t0_r0, `issues`.`tracker_id` AS t0_r1, `issues`.`project_id` AS t0_r2, `issues`.`subject` AS t0_r3, `issues`.`description` AS t0_r4, `issues`.`due_date` AS t0_r5, `issues`.`category_id` AS t0_r6, `issues`.`status_id` AS t0_r7, `issues`.`assigned_to_id` AS t0_r8, `issues`.`priority_id` AS t0_r9, `issues`.`fixed_version_id` AS t0_r10, `issues`.`author_id` AS t0_r11, `issues`.`lock_version` AS t0_r12, `issues`.`created_on` AS t0_r13, `issues`.`updated_on` AS t0_r14, `issues`.`start_date` AS t0_r15, `issues`.`done_ratio` AS t0_r16, `issues`.`estimated_hours` AS t0_r17, `issue_statuses`.`id` AS t1_r0, `issue_statuses`.`name` AS t1_r1, `issue_statuses`.`is_closed` AS t1_r2, `issue_statuses`.`is_default` AS t1_r3, `issue_statuses`.`position` AS t1_r4, `projects`.`id` AS t2_r0, `projects`.`name` AS t2_r1, `projects`.`description` AS t2_r2, `projects`.`homepage` AS t2_r3, `projects`.`is_public` AS t2_r4, `projects`.`parent_id` AS t2_r5, `projects`.`projects_count` AS t2_r6, `projects`.`created_on` AS t2_r7, `projects`.`updated_on` AS t2_r8, `projects`.`identifier` AS t2_r9, `projects`.`status` AS t2_r10, `trackers`.`id` AS t3_r0, `trackers`.`name` AS t3_r1, `trackers`.`is_in_chlog` AS t3_r2, `trackers`.`position` AS t3_r3, `trackers`.`is_in_roadmap` AS t3_r4, `enumerations`.`id` AS t4_r0, `enumerations`.`opt` AS t4_r1, `enumerations`.`name` AS t4_r2, `enumerations`.`position` AS t4_r3, `enumerations`.`is_default` AS t4_r4 FROM `issues` LEFT OUTER JOIN `issue_statuses` ON `issue_statuses`.id = `issues`.status_id LEFT OUTER JOIN `projects` ON `projects`.id = `issues`.project_id LEFT OUTER JOIN `trackers` ON `trackers`.id = `issues`.tracker_id LEFT OUTER JOIN `enumerations` ON `enumerations`.id = `issues`.priority_id WHERE (assigned_to_id=3 AND issue_statuses.is_closed=0 AND projects.status=1) ORDER BY enumerations.position DESC, issues.updated_on DESC LIMIT 10[0m
+Rendered issues/_list_simple (0.00043)
+  [4;35;1mToken Load (0.000377)[0m   [0mSELECT * FROM `tokens` WHERE (`tokens`.user_id = 3 AND (action='feeds')) LIMIT 1[0m
+  [4;36;1mToken Columns (0.001179)[0m   [0;1mSHOW FIELDS FROM `tokens`[0m
+Rendered my/blocks/_issuesassignedtome (0.05502)
+  [4;35;1mIssue Load Including Associations (0.000623)[0m   [0mSELECT `issues`.`id` AS t0_r0, `issues`.`tracker_id` AS t0_r1, `issues`.`project_id` AS t0_r2, `issues`.`subject` AS t0_r3, `issues`.`description` AS t0_r4, `issues`.`due_date` AS t0_r5, `issues`.`category_id` AS t0_r6, `issues`.`status_id` AS t0_r7, `issues`.`assigned_to_id` AS t0_r8, `issues`.`priority_id` AS t0_r9, `issues`.`fixed_version_id` AS t0_r10, `issues`.`author_id` AS t0_r11, `issues`.`lock_version` AS t0_r12, `issues`.`created_on` AS t0_r13, `issues`.`updated_on` AS t0_r14, `issues`.`start_date` AS t0_r15, `issues`.`done_ratio` AS t0_r16, `issues`.`estimated_hours` AS t0_r17, `issue_statuses`.`id` AS t1_r0, `issue_statuses`.`name` AS t1_r1, `issue_statuses`.`is_closed` AS t1_r2, `issue_statuses`.`is_default` AS t1_r3, `issue_statuses`.`position` AS t1_r4, `projects`.`id` AS t2_r0, `projects`.`name` AS t2_r1, `projects`.`description` AS t2_r2, `projects`.`homepage` AS t2_r3, `projects`.`is_public` AS t2_r4, `projects`.`parent_id` AS t2_r5, `projects`.`projects_count` AS t2_r6, `projects`.`created_on` AS t2_r7, `projects`.`updated_on` AS t2_r8, `projects`.`identifier` AS t2_r9, `projects`.`status` AS t2_r10, `trackers`.`id` AS t3_r0, `trackers`.`name` AS t3_r1, `trackers`.`is_in_chlog` AS t3_r2, `trackers`.`position` AS t3_r3, `trackers`.`is_in_roadmap` AS t3_r4 FROM `issues` LEFT OUTER JOIN `issue_statuses` ON `issue_statuses`.id = `issues`.status_id LEFT OUTER JOIN `projects` ON `projects`.id = `issues`.project_id LEFT OUTER JOIN `trackers` ON `trackers`.id = `issues`.tracker_id WHERE (author_id=3 AND projects.status=1) ORDER BY issues.updated_on DESC LIMIT 10[0m
+Rendered issues/_list_simple (0.00038)
+Rendered my/blocks/_issuesreportedbyme (0.00438)
+  [4;36;1mSetting Load (0.002094)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000149)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mMember Columns (0.000740)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mSQL (0.000505)[0m   [0mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) [0m
+  [4;36;1mProject Load Including Associations (0.000612)[0m   [0;1mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00730)
+Completed in 0.47949 (2 reqs/sec) | Rendering: 0.17671 (36%) | DB: 0.01763 (3%) | 200 OK [http://localhost/my/page]
+
+
+Processing ProjectsController#index (for 127.0.0.1 at 2008-07-09 20:17:38) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"index", "controller"=>"projects"}
+  [4;35;1mSetting Columns (0.000668)[0m   [0mSHOW FIELDS FROM `settings`[0m
+  [4;36;1mSQL (0.000094)[0m   [0;1mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;35;1mIssue Columns (0.001136)[0m   [0mSHOW FIELDS FROM `issues`[0m
+  [4;36;1mProject Columns (0.001056)[0m   [0;1mSHOW FIELDS FROM `projects`[0m
+  [4;35;1mUser Columns (0.001054)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000104)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;35;1mMember Columns (0.000720)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mSQL (0.000132)[0m   [0;1mSELECT count(DISTINCT `members`.id) AS count_all FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) [0m
+  [4;35;1mRole Columns (0.000777)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mMember Load Including Associations (0.000834)[0m   [0;1mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;35;1mProject Load (0.000327)[0m   [0mSELECT * FROM `projects` WHERE (projects.status=1 AND (projects.is_public = 1 or projects.id IN (1))) [0m
+  [4;36;1mProject Load (0.000111)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.id IN (NULL)) [0m
+Rendering template within layouts/base
+Rendering projects/index
+  [4;35;1mToken Load (0.000180)[0m   [0mSELECT * FROM `tokens` WHERE (`tokens`.user_id = 3 AND (action='feeds')) LIMIT 1[0m
+  [4;36;1mToken Columns (0.000907)[0m   [0;1mSHOW FIELDS FROM `tokens`[0m
+  [4;35;1mSetting Load (0.000116)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000098)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mProject Load Including Associations (0.000168)[0m   [0mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00296)
+Completed in 0.25944 (3 reqs/sec) | Rendering: 0.03113 (11%) | DB: 0.00848 (3%) | 200 OK [http://localhost/projects]
+
+
+Processing ProjectsController#show (for 127.0.0.1 at 2008-07-09 20:17:40) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"show", "id"=>"projectx", "controller"=>"projects"}
+  [4;36;1mSetting Columns (0.000789)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000078)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.021397)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000924)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mUser Columns (0.001092)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000099)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;36;1mProject Load (0.000140)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.`identifier` = 'projectx') LIMIT 1[0m
+  [4;35;1mEnabledModule Load (0.000139)[0m   [0mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;36;1mEnabledModule Columns (0.000651)[0m   [0;1mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;35;1mMember Columns (0.000747)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mRole Columns (0.000491)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mMember Load Including Associations (0.000116)[0m   [0mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;36;1mMember Load Including Associations (0.000956)[0m   [0;1mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `users`.`id` AS t1_r0, `users`.`login` AS t1_r1, `users`.`hashed_password` AS t1_r2, `users`.`firstname` AS t1_r3, `users`.`lastname` AS t1_r4, `users`.`mail` AS t1_r5, `users`.`mail_notification` AS t1_r6, `users`.`admin` AS t1_r7, `users`.`status` AS t1_r8, `users`.`last_login_on` AS t1_r9, `users`.`language` AS t1_r10, `users`.`auth_source_id` AS t1_r11, `users`.`created_on` AS t1_r12, `users`.`updated_on` AS t1_r13, `users`.`type` AS t1_r14, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `users` ON `users`.id = `members`.user_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.project_id = 1 AND (users.status=1)) ORDER BY position[0m
+  [4;35;1mProject Load (0.000297)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.parent_id = 1 AND (projects.status=1 AND (projects.is_public = 1 or projects.id IN (1)))) ORDER BY name[0m
+  [4;36;1mNews Columns (0.000785)[0m   [0;1mSHOW FIELDS FROM `news`[0m
+  [4;35;1mNews Load (0.000125)[0m   [0mSELECT * FROM `news` WHERE (`news`.project_id = 1) ORDER BY news.created_on DESC LIMIT 5[0m
+  [4;36;1mTracker Columns (0.000713)[0m   [0;1mSHOW FIELDS FROM `trackers`[0m
+  [4;35;1mTracker Load Including Associations (0.000167)[0m   [0mSELECT `trackers`.`id` AS t0_r0, `trackers`.`name` AS t0_r1, `trackers`.`is_in_chlog` AS t0_r2, `trackers`.`position` AS t0_r3, `trackers`.`is_in_roadmap` AS t0_r4, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10 FROM `trackers` LEFT OUTER JOIN `projects_trackers` ON `projects_trackers`.tracker_id = `trackers`.id LEFT OUTER JOIN `projects` ON `projects`.id = `projects_trackers`.project_id WHERE (projects.id = 1 OR projects.parent_id = 1) ORDER BY trackers.position[0m
+  [4;36;1mSetting Load (0.000145)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'display_subprojects_issues') LIMIT 1[0m
+  [4;35;1mSQL (0.000590)[0m   [0mSELECT count(DISTINCT `issues`.id) AS count_all, tracker_id AS tracker_id FROM `issues` LEFT OUTER JOIN `projects` ON `projects`.id = `issues`.project_id LEFT OUTER JOIN `issue_statuses` ON `issue_statuses`.id = `issues`.status_id LEFT OUTER JOIN `trackers` ON `trackers`.id = `issues`.tracker_id WHERE (((projects.id = 1 OR projects.parent_id = 1)) AND issue_statuses.is_closed=0) AND (projects.status=1 AND (projects.is_public = 1 or projects.id IN (1))) GROUP BY tracker_id [0m
+  [4;36;1mTracker Load (0.000079)[0m   [0;1mSELECT * FROM `trackers` WHERE (`trackers`.`id` = 1) [0m
+  [4;35;1mSQL (0.000342)[0m   [0mSELECT count(DISTINCT `issues`.id) AS count_all, tracker_id AS tracker_id FROM `issues` LEFT OUTER JOIN `projects` ON `projects`.id = `issues`.project_id LEFT OUTER JOIN `issue_statuses` ON `issue_statuses`.id = `issues`.status_id LEFT OUTER JOIN `trackers` ON `trackers`.id = `issues`.tracker_id WHERE ((projects.id = 1 OR projects.parent_id = 1)) AND (projects.status=1 AND (projects.is_public = 1 or projects.id IN (1))) GROUP BY tracker_id [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `trackers` WHERE (`trackers`.`id` = 1) [0m
+  [4;35;1mRole Load (0.000354)[0m   [0mSELECT * FROM `roles` WHERE (`roles`.`builtin` = 1) LIMIT 1[0m
+  [4;36;1mTimeEntry Columns (0.000853)[0m   [0;1mSHOW FIELDS FROM `time_entries`[0m
+  [4;35;1mSQL (0.000313)[0m   [0mSELECT sum(`time_entries`.hours) AS sum_hours FROM `time_entries` LEFT OUTER JOIN `projects` ON `projects`.id = `time_entries`.project_id WHERE ((projects.id = 1 OR projects.parent_id = 1)) AND (((projects.status=1) AND (projects.is_public = 1 OR projects.id IN (1)))) [0m
+  [4;36;1mToken Load (0.000123)[0m   [0;1mSELECT * FROM `tokens` WHERE (`tokens`.user_id = 3 AND (action='feeds')) LIMIT 1[0m
+  [4;35;1mToken Columns (0.000614)[0m   [0mSHOW FIELDS FROM `tokens`[0m
+Rendering template within layouts/base
+Rendering projects/show
+  [4;36;1mCustomValue Load (0.000119)[0m   [0;1mSELECT * FROM `custom_values` WHERE (`custom_values`.customized_id = 1 AND `custom_values`.customized_type = 'Project') [0m
+  [4;35;1mSetting Load (0.000137)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000137)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000112)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;36;1mProject Load Including Associations (0.000176)[0m   [0;1mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00306)
+  [4;35;1mVersion Columns (0.000764)[0m   [0mSHOW FIELDS FROM `versions`[0m
+  [4;36;1mSQL (0.000420)[0m   [0;1mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;35;1mWiki Load (0.000144)[0m   [0mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;36;1mBoard Columns (0.000813)[0m   [0;1mSHOW FIELDS FROM `boards`[0m
+  [4;35;1mSQL (0.000161)[0m   [0mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;36;1mRepository Load (0.000110)[0m   [0;1mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.50069 (1 reqs/sec) | Rendering: 0.14784 (29%) | DB: 0.03621 (7%) | 200 OK [http://localhost/projects/show/projectx]
+
+
+Processing BoardsController#index (for 127.0.0.1 at 2008-07-09 20:17:44) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"project_id"=>"projectx", "action"=>"index", "controller"=>"boards"}
+  [4;35;1mSetting Columns (0.000680)[0m   [0mSHOW FIELDS FROM `settings`[0m
+  [4;36;1mSQL (0.000093)[0m   [0;1mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;35;1mIssue Columns (0.001345)[0m   [0mSHOW FIELDS FROM `issues`[0m
+  [4;36;1mProject Columns (0.001015)[0m   [0;1mSHOW FIELDS FROM `projects`[0m
+  [4;35;1mUser Columns (0.001214)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000110)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;35;1mProject Load (0.000125)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.`identifier` = 'projectx') LIMIT 1[0m
+  [4;36;1mEnabledModule Load (0.000152)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.000561)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mMember Columns (0.000929)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mRole Columns (0.000905)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mMember Load Including Associations (0.000186)[0m   [0;1mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;35;1mBoard Columns (0.001013)[0m   [0mSHOW FIELDS FROM `boards`[0m
+  [4;36;1mSQL (0.000112)[0m   [0;1mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+Rendering template within layouts/base
+Rendering boards/index
+  [4;35;1mBoard Load (0.000123)[0m   [0mSELECT * FROM `boards` WHERE (`boards`.project_id = 1) ORDER BY position ASC[0m
+  [4;36;1mMessage Columns (0.001350)[0m   [0;1mSHOW FIELDS FROM `messages`[0m
+  [4;35;1mMessage Load (0.000102)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 50) [0m
+  [4;36;1mUser Load (0.000483)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mUserPreference Load (0.000157)[0m   [0mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;36;1mUserPreference Columns (0.000799)[0m   [0;1mSHOW FIELDS FROM `user_preferences`[0m
+  [4;35;1mSetting Load (0.000122)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000070)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000144)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;36;1mMessage Load (0.000088)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 48) [0m
+  [4;35;1mToken Load (0.000131)[0m   [0mSELECT * FROM `tokens` WHERE (`tokens`.user_id = 3 AND (action='feeds')) LIMIT 1[0m
+  [4;36;1mToken Columns (0.000719)[0m   [0;1mSHOW FIELDS FROM `tokens`[0m
+  [4;35;1mSetting Load (0.000127)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000147)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mProject Load Including Associations (0.000174)[0m   [0mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00308)
+  [4;36;1mVersion Columns (0.001509)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000160)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000219)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mRepository Load (0.000168)[0m   [0mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.41967 (2 reqs/sec) | Rendering: 0.14725 (35%) | DB: 0.01523 (3%) | 200 OK [http://localhost/projects/projectx/boards]
+
+
+Processing BoardsController#show (for 127.0.0.1 at 2008-07-09 20:17:47) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"project_id"=>"projectx", "action"=>"show", "id"=>"1", "controller"=>"boards"}
+  [4;36;1mSetting Columns (0.000690)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000092)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001164)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000912)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mUser Columns (0.001043)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000104)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;36;1mProject Load (0.002479)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.`identifier` = 'projectx') LIMIT 1[0m
+  [4;35;1mBoard Columns (0.000835)[0m   [0mSHOW FIELDS FROM `boards`[0m
+  [4;36;1mBoard Load (0.000319)[0m   [0;1mSELECT * FROM `boards` WHERE (`boards`.`id` = 1 AND (`boards`.project_id = 1)) ORDER BY position ASC[0m
+  [4;35;1mEnabledModule Load (0.000149)[0m   [0mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;36;1mEnabledModule Columns (0.000562)[0m   [0;1mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;35;1mMember Columns (0.000742)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mRole Columns (0.000617)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mMember Load Including Associations (0.000742)[0m   [0mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;36;1mMessage Columns (0.001230)[0m   [0;1mSHOW FIELDS FROM `messages`[0m
+  [4;35;1mSQL (0.000077)[0m   [0mSELECT count(*) AS count_all FROM `messages` WHERE (`messages`.board_id = 1 AND (messages.parent_id IS NULL)) [0m
+  [4;36;1mSetting Load (0.000074)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'per_page_options') LIMIT 1[0m
+  [4;35;1mMessage Load (0.000104)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.board_id = 1 AND (messages.parent_id IS NULL)) ORDER BY messages.sticky DESC, messages.updated_on desc, messages.created_on DESC LIMIT 0, 25[0m
+  [4;36;1mUser Load (0.000373)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.id IN ('1','3')) [0m
+  [4;35;1mMessage Load (0.000088)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.id IN ('46','47','37','50')) [0m
+  [4;36;1mUser Load (0.000308)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.id IN ('1')) [0m
+Rendering template within layouts/base
+Rendering boards/show
+  [4;35;1mWatcher Load (0.000477)[0m   [0mSELECT * FROM `watchers` WHERE (`watchers`.watchable_id = 1 AND `watchers`.watchable_type = 'Board' AND (watchers.user_id = 3)) LIMIT 1[0m
+  [4;36;1mSetting Load (0.000154)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000115)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'attachment_max_size') LIMIT 1[0m
+Rendered attachments/_form (0.00406)
+Rendered messages/_form (0.00882)
+  [4;36;1mSetting Load (0.000174)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;35;1mUserPreference Load (0.000125)[0m   [0mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;36;1mUserPreference Columns (0.000824)[0m   [0;1mSHOW FIELDS FROM `user_preferences`[0m
+  [4;35;1mSetting Load (0.000133)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000387)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;35;1mMessage Load (0.000154)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 48) [0m
+  [4;36;1mMessage Load (0.000103)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 32) [0m
+  [4;35;1mMessage Load (0.000116)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 24) [0m
+  [4;36;1mMessage Load (0.000184)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 30) [0m
+  [4;35;1mSetting Load (0.000127)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000116)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mProject Load Including Associations (0.000161)[0m   [0mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00328)
+  [4;36;1mVersion Columns (0.000799)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000101)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000137)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000072)[0m   [0mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;36;1mRepository Load (0.000102)[0m   [0;1mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.45138 (2 reqs/sec) | Rendering: 0.19148 (42%) | DB: 0.01726 (3%) | 200 OK [http://localhost/projects/projectx/boards/show/1]
+
+
+Processing MessagesController#show (for 127.0.0.1 at 2008-07-09 20:17:50) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"show", "id"=>"48", "controller"=>"messages", "board_id"=>"1"}
+  [4;35;1mSetting Columns (0.000672)[0m   [0mSHOW FIELDS FROM `settings`[0m
+  [4;36;1mSQL (0.000088)[0m   [0;1mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;35;1mIssue Columns (0.001146)[0m   [0mSHOW FIELDS FROM `issues`[0m
+  [4;36;1mProject Columns (0.000912)[0m   [0;1mSHOW FIELDS FROM `projects`[0m
+  [4;35;1mUser Columns (0.001064)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000105)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;35;1mBoard Columns (0.000926)[0m   [0mSHOW FIELDS FROM `boards`[0m
+  [4;36;1mBoard Load (0.000073)[0m   [0;1mSELECT * FROM `boards` WHERE (`boards`.`id` = 1) [0m
+  [4;35;1mProject Load (0.000091)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.id IN ('1')) [0m
+  [4;36;1mMessage Columns (0.000956)[0m   [0;1mSHOW FIELDS FROM `messages`[0m
+  [4;35;1mMessage Load (0.000130)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 48 AND (`messages`.board_id = 1)) ORDER BY messages.created_on DESC[0m
+  [4;36;1mMessage Load (0.000132)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.id IN (NULL)) [0m
+  [4;35;1mEnabledModule Load (0.000201)[0m   [0mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;36;1mEnabledModule Columns (0.001004)[0m   [0;1mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;35;1mMember Columns (0.000756)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mRole Columns (0.000495)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mMember Load Including Associations (0.000117)[0m   [0mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;36;1mUserPreference Load (0.000128)[0m   [0;1mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;35;1mUserPreference Columns (0.000808)[0m   [0mSHOW FIELDS FROM `user_preferences`[0m
+Rendering template within layouts/base
+Rendering messages/show
+  [4;36;1mUser Load (0.000142)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSetting Load (0.000105)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000069)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000061)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000126)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;35;1mAttachment Columns (0.001063)[0m   [0mSHOW FIELDS FROM `attachments`[0m
+  [4;36;1mSQL (0.000096)[0m   [0;1mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 48 AND `attachments`.container_type = 'Message') [0m
+  [4;35;1mSQL (0.000053)[0m   [0mSELECT count(*) AS count_all FROM `messages` WHERE (`messages`.parent_id = 48) [0m
+  [4;36;1mMessage Load (0.000074)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.parent_id = 48) ORDER BY messages.created_on ASC[0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mSQL (0.000119)[0m   [0;1mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 49 AND `attachments`.container_type = 'Message') [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mSQL (0.000109)[0m   [0;1mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 50 AND `attachments`.container_type = 'Message') [0m
+  [4;35;1mSetting Load (0.000132)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'attachment_max_size') LIMIT 1[0m
+Rendered attachments/_form (0.00250)
+Rendered messages/_form (0.00515)
+  [4;36;1mSetting Load (0.000142)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000096)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mProject Load Including Associations (0.000165)[0m   [0;1mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00293)
+  [4;35;1mVersion Columns (0.000762)[0m   [0mSHOW FIELDS FROM `versions`[0m
+  [4;36;1mSQL (0.000081)[0m   [0;1mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;35;1mWiki Load (0.000633)[0m   [0mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;36;1mSQL (0.000076)[0m   [0;1mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;35;1mRepository Load (0.000085)[0m   [0mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.34065 (2 reqs/sec) | Rendering: 0.07432 (21%) | DB: 0.01399 (4%) | 200 OK [http://localhost/boards/1/topics/show/48]
+
+
+Processing MessagesController#show (for 127.0.0.1 at 2008-07-09 20:17:59) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"show", "id"=>"48", "controller"=>"messages", "board_id"=>"1"}
+  [4;36;1mSetting Columns (0.000978)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000104)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001209)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.000936)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mUser Columns (0.001045)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000098)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;36;1mBoard Columns (0.001024)[0m   [0;1mSHOW FIELDS FROM `boards`[0m
+  [4;35;1mBoard Load (0.000095)[0m   [0mSELECT * FROM `boards` WHERE (`boards`.`id` = 1) [0m
+  [4;36;1mProject Load (0.000103)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.id IN ('1')) [0m
+  [4;35;1mMessage Columns (0.000813)[0m   [0mSHOW FIELDS FROM `messages`[0m
+  [4;36;1mMessage Load (0.000071)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 48 AND (`messages`.board_id = 1)) ORDER BY messages.created_on DESC[0m
+  [4;35;1mMessage Load (0.000118)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.id IN (NULL)) [0m
+  [4;36;1mEnabledModule Load (0.000137)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.000666)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mMember Columns (0.001040)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mRole Columns (0.000771)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mMember Load Including Associations (0.000121)[0m   [0;1mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;35;1mUserPreference Load (0.000144)[0m   [0mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;36;1mUserPreference Columns (0.000638)[0m   [0;1mSHOW FIELDS FROM `user_preferences`[0m
+Rendering template within layouts/base
+Rendering messages/show
+  [4;35;1mUser Load (0.000164)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mSetting Load (0.000098)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000091)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000110)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000119)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;36;1mAttachment Columns (0.000978)[0m   [0;1mSHOW FIELDS FROM `attachments`[0m
+  [4;35;1mSQL (0.000067)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 48 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mSQL (0.000053)[0m   [0;1mSELECT count(*) AS count_all FROM `messages` WHERE (`messages`.parent_id = 48) [0m
+  [4;35;1mMessage Load (0.000075)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.parent_id = 48) ORDER BY messages.created_on ASC[0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSQL (0.000143)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 49 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSQL (0.000115)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 50 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mSetting Load (0.000116)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'attachment_max_size') LIMIT 1[0m
+Rendered attachments/_form (0.00208)
+Rendered messages/_form (0.00448)
+  [4;35;1mSetting Load (0.000119)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000088)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;35;1mProject Load Including Associations (0.000158)[0m   [0mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00287)
+  [4;36;1mVersion Columns (0.000751)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000081)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000147)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000107)[0m   [0mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;36;1mRepository Load (0.000122)[0m   [0;1mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.32990 (3 reqs/sec) | Rendering: 0.07121 (21%) | DB: 0.01381 (4%) | 200 OK [http://localhost/boards/1/topics/show/48]
+
+
+Processing MessagesController#reply (for 127.0.0.1 at 2008-07-09 20:18:08) [POST]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"commit"=>"Submit", "reply"=>{"subject"=>"RE: I need help! Help!", "content"=>"A reply via the forum."}, "action"=>"reply", "id"=>"48", "controller"=>"messages", "board_id"=>"1", "attachments"=>{"1"=>{"description"=>"", "file"=>""}}}
+  [4;35;1mSetting Columns (0.000821)[0m   [0mSHOW FIELDS FROM `settings`[0m
+  [4;36;1mSQL (0.000080)[0m   [0;1mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;35;1mIssue Columns (0.001238)[0m   [0mSHOW FIELDS FROM `issues`[0m
+  [4;36;1mProject Columns (0.001038)[0m   [0;1mSHOW FIELDS FROM `projects`[0m
+  [4;35;1mUser Columns (0.001064)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.000098)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;35;1mBoard Columns (0.001461)[0m   [0mSHOW FIELDS FROM `boards`[0m
+  [4;36;1mBoard Load (0.000092)[0m   [0;1mSELECT * FROM `boards` WHERE (`boards`.`id` = 1) [0m
+  [4;35;1mProject Load (0.000099)[0m   [0mSELECT * FROM `projects` WHERE (`projects`.id IN ('1')) [0m
+  [4;36;1mMessage Columns (0.000818)[0m   [0;1mSHOW FIELDS FROM `messages`[0m
+  [4;35;1mMessage Load (0.000095)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 48 AND (`messages`.board_id = 1)) ORDER BY messages.created_on DESC[0m
+  [4;36;1mMessage Load (0.000108)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.id IN (NULL)) [0m
+  [4;35;1mEnabledModule Load (0.000159)[0m   [0mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;36;1mEnabledModule Columns (0.000829)[0m   [0;1mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;35;1mMember Columns (0.000753)[0m   [0mSHOW FIELDS FROM `members`[0m
+  [4;36;1mRole Columns (0.000551)[0m   [0;1mSHOW FIELDS FROM `roles`[0m
+  [4;35;1mMember Load Including Associations (0.000111)[0m   [0mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;36;1mSQL (0.000122)[0m   [0;1mBEGIN[0m
+  [4;35;1mMessage Load (0.000120)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 48) [0m
+  [4;36;1mMessage Create (0.000362)[0m   [0;1mINSERT INTO `messages` (`created_on`, `updated_on`, `subject`, `replies_count`, `content`, `last_reply_id`, `author_id`, `board_id`, `parent_id`, `sticky`, `locked`) VALUES('2008-07-09 20:18:09', '2008-07-09 20:18:09', 'RE: I need help! Help!', 0, 'A reply via the forum.', NULL, 3, 1, 48, 0, 0)[0m
+  [4;35;1mMessage Load (0.000867)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.parent_id = 48) ORDER BY messages.created_on ASC[0m
+  [4;36;1mUser Load (0.000099)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mCACHE (0.000000)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mUser Load (0.000248)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) [0m
+  [4;36;1mWatcher Load (0.000146)[0m   [0;1mSELECT * FROM `watchers` WHERE (`watchers`.watchable_id = 1 AND `watchers`.watchable_type = 'Board') [0m
+  [4;35;1mWatcher Columns (0.000702)[0m   [0mSHOW FIELDS FROM `watchers`[0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) [0m
+  [4;35;1mMember Load Including Associations (0.000461)[0m   [0mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `users`.`id` AS t1_r0, `users`.`login` AS t1_r1, `users`.`hashed_password` AS t1_r2, `users`.`firstname` AS t1_r3, `users`.`lastname` AS t1_r4, `users`.`mail` AS t1_r5, `users`.`mail_notification` AS t1_r6, `users`.`admin` AS t1_r7, `users`.`status` AS t1_r8, `users`.`last_login_on` AS t1_r9, `users`.`language` AS t1_r10, `users`.`auth_source_id` AS t1_r11, `users`.`created_on` AS t1_r12, `users`.`updated_on` AS t1_r13, `users`.`type` AS t1_r14 FROM `members` LEFT OUTER JOIN `users` ON `users`.id = `members`.user_id WHERE (`members`.project_id = 1 AND (users.status=1)) [0m
+  [4;36;1mSetting Load (0.000089)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'notified_events') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000143)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'default_language') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000080)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'mail_from') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000067)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'host_name') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000065)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'protocol') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000079)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000061)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'forum_mail_from') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000115)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000135)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000118)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'emails_footer') LIMIT 1[0m
+  [4;36;1mUserPreference Load (0.000133)[0m   [0;1mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;35;1mUserPreference Columns (0.000767)[0m   [0mSHOW FIELDS FROM `user_preferences`[0m
+  [4;36;1mSetting Load (0.000116)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'bcc_recipients') LIMIT 1[0m
+Sent mail to 
+
+From: jhoover667@gmail.com
+Bcc: jhoover6672000@yahoo.com, jhoover@compfactory.com
+Subject: [Project X - Users] RE: I need help! Help!
+Mime-Version: 1.0
+Content-Type: multipart/alternative; boundary=mimepart_487563514726d_5c91..fdb29ca3816a
+X-Redmine-Topic-Id: 48
+X-Redmine-Project: projectx
+X-Mailer: Redmine
+X-Redmine-Site: Redmine
+X-Redmine-Host: localhost:3000
+
+
+--mimepart_487563514726d_5c91..fdb29ca3816a
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+http://localhost:3000/boards/1/topics/show/48
+John Doe
+
+A reply via the forum.
+
+----------------------------------------
+You have received this notification because you have either subscribed to=
+ it, or are involved in it.
+To change your notification preferences, please click here: http://hostna=
+me/my/account
+
+--mimepart_487563514726d_5c91..fdb29ca3816a
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: Quoted-printable
+Content-Disposition: inline
+
+<html>
+<head>
+<style>
+body {
+  font-family: Verdana, sans-serif;
+  font-size: 0.8em;
+  color:#484848;
+}
+h1 {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  font-size: 1.2em;
+  margin: 0px;
+}
+a, a:link, a:visited {
+  color: #2A5685;
+}
+a:hover, a:active {
+  color: #c61a1a;
+}
+hr {
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+  border: 0;
+}
+.footer {
+  font-size: 0.8em;
+  font-style: italic;
+}
+</style>
+</head>
+<body>
+<h1>Project X - Users: <a href=3D"http://localhost:3000/boards/1/topics/s=
+how/48">RE: I need help! Help!</a></h1>
+<em>John Doe</em>
+
+<p>A reply via the forum.</p>
+
+<hr />
+<span class=3D"footer"><p>You have received this notification because you=
+ have either subscribed to it, or are involved in it.<br />
+To change your notification preferences, please click here: <a class=3D"e=
+xternal" href=3D"http://hostname/my/account">http://hostname/my/account</=
+a></p></span>
+</body>
+</html>
+
+--mimepart_487563514726d_5c91..fdb29ca3816a--
+  [4;35;1mMessage Update (0.000299)[0m   [0mUPDATE `messages` SET `replies_count` = `replies_count` + 1 WHERE (`id` = 48) [0m
+  [4;36;1mAttachment Load (0.000240)[0m   [0;1mSELECT * FROM `attachments` WHERE (`attachments`.container_id = 51 AND `attachments`.container_type = 'Message') [0m
+  [4;35;1mBoard Update (0.000206)[0m   [0mUPDATE `boards` SET `last_message_id` = 51 WHERE `id` = 1[0m
+  [4;36;1mBoard Update (0.000156)[0m   [0;1mUPDATE `boards` SET `messages_count` = 51 WHERE `id` = 1[0m
+  [4;35;1mMessage Load (0.000199)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.`id` = 48) [0m
+  [4;36;1mMessage Update (0.000174)[0m   [0;1mUPDATE `messages` SET `last_reply_id` = 51, `updated_on` = '2008-07-09 20:18:09' WHERE `id` = 48[0m
+  [4;35;1mSQL (0.003911)[0m   [0mCOMMIT[0m
+Redirected to http://localhost:3000/boards/1/topics/show/48
+Completed in 0.43838 (2 reqs/sec) | DB: 0.01970 (4%) | 302 Found [http://localhost/boards/1/topics/reply/48]
+
+
+Processing MessagesController#show (for 127.0.0.1 at 2008-07-09 20:18:09) [GET]
+  Session ID: abbee603af88bc3f99d7c6ba59692d52
+  Parameters: {"action"=>"show", "id"=>"48", "controller"=>"messages", "board_id"=>"1"}
+  [4;36;1mSetting Columns (0.000677)[0m   [0;1mSHOW FIELDS FROM `settings`[0m
+  [4;35;1mSQL (0.000091)[0m   [0mSELECT max(`settings`.updated_on) AS max_updated_on FROM `settings` [0m
+  [4;36;1mIssue Columns (0.001355)[0m   [0;1mSHOW FIELDS FROM `issues`[0m
+  [4;35;1mProject Columns (0.001184)[0m   [0mSHOW FIELDS FROM `projects`[0m
+  [4;36;1mUser Columns (0.001247)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mUser Load (0.000112)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 3) AND (status = 1) [0m
+  [4;36;1mBoard Columns (0.000987)[0m   [0;1mSHOW FIELDS FROM `boards`[0m
+  [4;35;1mBoard Load (0.000350)[0m   [0mSELECT * FROM `boards` WHERE (`boards`.`id` = 1) [0m
+  [4;36;1mProject Load (0.000131)[0m   [0;1mSELECT * FROM `projects` WHERE (`projects`.id IN ('1')) [0m
+  [4;35;1mMessage Columns (0.000863)[0m   [0mSHOW FIELDS FROM `messages`[0m
+  [4;36;1mMessage Load (0.000281)[0m   [0;1mSELECT * FROM `messages` WHERE (`messages`.`id` = 48 AND (`messages`.board_id = 1)) ORDER BY messages.created_on DESC[0m
+  [4;35;1mMessage Load (0.000251)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.id IN (NULL)) [0m
+  [4;36;1mEnabledModule Load (0.000137)[0m   [0;1mSELECT * FROM `enabled_modules` WHERE (`enabled_modules`.project_id = 1) [0m
+  [4;35;1mEnabledModule Columns (0.000648)[0m   [0mSHOW FIELDS FROM `enabled_modules`[0m
+  [4;36;1mMember Columns (0.000861)[0m   [0;1mSHOW FIELDS FROM `members`[0m
+  [4;35;1mRole Columns (0.000535)[0m   [0mSHOW FIELDS FROM `roles`[0m
+  [4;36;1mMember Load Including Associations (0.000117)[0m   [0;1mSELECT `members`.`id` AS t0_r0, `members`.`user_id` AS t0_r1, `members`.`project_id` AS t0_r2, `members`.`role_id` AS t0_r3, `members`.`created_on` AS t0_r4, `members`.`mail_notification` AS t0_r5, `projects`.`id` AS t1_r0, `projects`.`name` AS t1_r1, `projects`.`description` AS t1_r2, `projects`.`homepage` AS t1_r3, `projects`.`is_public` AS t1_r4, `projects`.`parent_id` AS t1_r5, `projects`.`projects_count` AS t1_r6, `projects`.`created_on` AS t1_r7, `projects`.`updated_on` AS t1_r8, `projects`.`identifier` AS t1_r9, `projects`.`status` AS t1_r10, `roles`.`id` AS t2_r0, `roles`.`name` AS t2_r1, `roles`.`position` AS t2_r2, `roles`.`assignable` AS t2_r3, `roles`.`builtin` AS t2_r4, `roles`.`permissions` AS t2_r5 FROM `members` LEFT OUTER JOIN `projects` ON `projects`.id = `members`.project_id LEFT OUTER JOIN `roles` ON `roles`.id = `members`.role_id WHERE (`members`.user_id = 3 AND (projects.status=1)) ORDER BY projects.name[0m
+  [4;35;1mUserPreference Load (0.000126)[0m   [0mSELECT * FROM `user_preferences` WHERE (`user_preferences`.user_id = 3) LIMIT 1[0m
+  [4;36;1mUserPreference Columns (0.000628)[0m   [0;1mSHOW FIELDS FROM `user_preferences`[0m
+Rendering template within layouts/base
+Rendering messages/show
+  [4;35;1mUser Load (0.000134)[0m   [0mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;36;1mSetting Load (0.000102)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'date_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.001715)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'time_format') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000106)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'user_format') LIMIT 1[0m
+  [4;35;1mSetting Load (0.000138)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'text_formatting') LIMIT 1[0m
+  [4;36;1mAttachment Columns (0.001050)[0m   [0;1mSHOW FIELDS FROM `attachments`[0m
+  [4;35;1mSQL (0.000087)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 48 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mSQL (0.000316)[0m   [0;1mSELECT count(*) AS count_all FROM `messages` WHERE (`messages`.parent_id = 48) [0m
+  [4;35;1mMessage Load (0.000324)[0m   [0mSELECT * FROM `messages` WHERE (`messages`.parent_id = 48) ORDER BY messages.created_on ASC[0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSQL (0.000111)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 49 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mCACHE (0.000000)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 1) [0m
+  [4;35;1mSQL (0.000107)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 50 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mUser Load (0.000082)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 3) [0m
+  [4;35;1mSQL (0.000313)[0m   [0mSELECT count(*) AS count_all FROM `attachments` WHERE (`attachments`.container_id = 51 AND `attachments`.container_type = 'Message') [0m
+  [4;36;1mSetting Load (0.000110)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'attachment_max_size') LIMIT 1[0m
+Rendered attachments/_form (0.00575)
+Rendered messages/_form (0.00820)
+  [4;35;1mSetting Load (0.000143)[0m   [0mSELECT * FROM `settings` WHERE (`settings`.`name` = 'ui_theme') LIMIT 1[0m
+  [4;36;1mSetting Load (0.000094)[0m   [0;1mSELECT * FROM `settings` WHERE (`settings`.`name` = 'app_title') LIMIT 1[0m
+  [4;35;1mProject Load Including Associations (0.000163)[0m   [0mSELECT `projects`.`id` AS t0_r0, `projects`.`name` AS t0_r1, `projects`.`description` AS t0_r2, `projects`.`homepage` AS t0_r3, `projects`.`is_public` AS t0_r4, `projects`.`parent_id` AS t0_r5, `projects`.`projects_count` AS t0_r6, `projects`.`created_on` AS t0_r7, `projects`.`updated_on` AS t0_r8, `projects`.`identifier` AS t0_r9, `projects`.`status` AS t0_r10, `parents_projects`.`id` AS t1_r0, `parents_projects`.`name` AS t1_r1, `parents_projects`.`description` AS t1_r2, `parents_projects`.`homepage` AS t1_r3, `parents_projects`.`is_public` AS t1_r4, `parents_projects`.`parent_id` AS t1_r5, `parents_projects`.`projects_count` AS t1_r6, `parents_projects`.`created_on` AS t1_r7, `parents_projects`.`updated_on` AS t1_r8, `parents_projects`.`identifier` AS t1_r9, `parents_projects`.`status` AS t1_r10 FROM `projects` LEFT OUTER JOIN `projects` parents_projects ON `parents_projects`.id = `projects`.parent_id INNER JOIN members ON projects.id = members.project_id WHERE ((`members`.user_id = 3) AND ((projects.status=1))) [0m
+Rendered layouts/_project_selector (0.00301)
+  [4;36;1mVersion Columns (0.000752)[0m   [0;1mSHOW FIELDS FROM `versions`[0m
+  [4;35;1mSQL (0.000095)[0m   [0mSELECT count(*) AS count_all FROM `versions` WHERE (`versions`.project_id = 1) [0m
+  [4;36;1mWiki Load (0.000131)[0m   [0;1mSELECT * FROM `wikis` WHERE (`wikis`.project_id = 1) LIMIT 1[0m
+  [4;35;1mSQL (0.000363)[0m   [0mSELECT count(*) AS count_all FROM `boards` WHERE (`boards`.project_id = 1) [0m
+  [4;36;1mRepository Load (0.000095)[0m   [0;1mSELECT * FROM `repositories` WHERE (`repositories`.project_id = 1) LIMIT 1[0m
+Completed in 0.35701 (2 reqs/sec) | Rendering: 0.08712 (24%) | DB: 0.01711 (4%) | 200 OK [http://localhost/boards/1/topics/show/48]

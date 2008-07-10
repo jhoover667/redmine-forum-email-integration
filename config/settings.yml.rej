@@ -1,0 +1,17 @@
+***************
+*** 44,49 ****
+    default: '25,50,100'
+  mail_from:
+    default: redmine@somenet.foo
+  bcc_recipients:
+    default: 1
+  text_formatting:
+--- 44,51 ----
+    default: '25,50,100'
+  mail_from:
+    default: redmine@somenet.foo
++ forum_mail_from:
++   default: ""
+  bcc_recipients:
+    default: 1
+  text_formatting:

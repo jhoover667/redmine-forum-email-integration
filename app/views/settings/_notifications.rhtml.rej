@@ -1,0 +1,18 @@
+***************
+*** 5,10 ****
+  <p><label><%= l(:setting_mail_from) %></label>
+  <%= text_field_tag 'settings[mail_from]', Setting.mail_from, :size => 60 %></p>
+  
+  <p><label><%= l(:setting_bcc_recipients) %></label>
+  <%= check_box_tag 'settings[bcc_recipients]', 1, Setting.bcc_recipients? %>
+  <%= hidden_field_tag 'settings[bcc_recipients]', 0 %></p>
+--- 5,13 ----
+  <p><label><%= l(:setting_mail_from) %></label>
+  <%= text_field_tag 'settings[mail_from]', Setting.mail_from, :size => 60 %></p>
+  
++ <p><label><%= l(:setting_forum_mail_from) %></label>
++ <%= text_field_tag 'settings[forum_mail_from]', Setting.forum_mail_from, :size => 60 %></p>
++ 
+  <p><label><%= l(:setting_bcc_recipients) %></label>
+  <%= check_box_tag 'settings[bcc_recipients]', 1, Setting.bcc_recipients? %>
+  <%= hidden_field_tag 'settings[bcc_recipients]', 0 %></p>

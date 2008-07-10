@@ -1,0 +1,404 @@
+Index: test/unit/mail_handler_test.rb
+===================================================================
+--- test/unit/mail_handler_test.rb	(revision 1648)
++++ test/unit/mail_handler_test.rb	(working copy)
+@@ -26,7 +26,8 @@
+                    :trackers,
+                    :projects_trackers,
+                    :enumerations,
+-                   :issue_categories
++                   :issue_categories,
++                   :boards
+   
+   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures/mail_handler'
+   
+@@ -97,7 +98,56 @@
+     assert_equal Issue.find(2), journal.journalized
+     assert_equal 'This is reply', journal.notes
+   end
++  
++  def test_add_forum_message
++    # This email subject contains: [eCookbook - Discussion] A new message on a forum
++    message = submit_email('message_on_given_project.eml')
++    assert message.is_a?(Message)
++    assert !message.new_record?
++    message.reload
++    assert_equal 'A new message on a forum', message.subject
++    assert_equal User.find_by_login('jsmith'), message.author
++    assert_equal Board.find(2), message.board
++    assert message.content.include?('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.')
++  end
++  
++  def test_add_forum_message_reply
++    # This email subject contains: Re: [eCookbook - Help] First post
++    message = submit_email('message_reply.eml')
++    assert message.is_a?(Message)
++    assert !message.new_record?
++    message.reload
++    assert_equal 'Re: First post', message.subject
++    assert_equal User.find_by_login('jsmith'), message.author
++    assert_equal Board.find(1), message.board
++    assert_equal Message.find(1).id, message.parent_id
++    assert message.content.include?('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.')
++  end
++  
++  def test_reject_invalid_message_project
++    # This email subject contains: [Bad Project Name - Discussion]
++    message = submit_email('message_invalid_project.eml')
++    assert !message
++  end
++  
++  def test_reject_invalid_message_board
++    # This email subject contains: [eCookbook - Invalid Board Name]
++    message = submit_email('message_invalid_board.eml')
++    assert !message
++  end
++  
++  def test_reject_invalid_user_email
++    # This email is from: not_a_valid_user_email@somenet.foo
++    message = submit_email('message_invalid_user_email.eml')
++    assert !message
++  end
+ 
++  def test_reject_unsupported_email
++    # This email is from a valid user but has no content for an issue or message
++    message = submit_email('unsupported_email.eml')
++    assert !message
++  end
++  
+   private
+   
+   def submit_email(filename, options={})
+Index: test/fixtures/mail_handler/message_on_given_project.eml
+===================================================================
+--- test/fixtures/mail_handler/message_on_given_project.eml	(revision 0)
++++ test/fixtures/mail_handler/message_on_given_project.eml	(revision 0)
+@@ -0,0 +1,31 @@
++Return-Path: <jsmith@somenet.foo>
++Received: from osiris ([127.0.0.1])
++	by OSIRIS
++	with hMailServer ; Sun, 22 Jun 2008 12:28:07 +0200
++Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
++From: "John Smith" <jsmith@somenet.foo>
++To: <redmine@somenet.foo>
++Subject: [eCookbook - Discussion] A new message on a forum
++Date: Sun, 22 Jun 2008 12:28:07 +0200
++MIME-Version: 1.0
++Content-Type: text/plain;
++	format=flowed;
++	charset="iso-8859-1";
++	reply-type=original
++Content-Transfer-Encoding: 7bit
++X-Priority: 3
++X-MSMail-Priority: Normal
++X-Mailer: Microsoft Outlook Express 6.00.2900.2869
++X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
++
++Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
++turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
++blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
++sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
++in urna sed tellus aliquet lobortis. Morbi scelerisque tortor in dolor. Cras 
++sagittis odio eu lacus. Aliquam sem tortor, consequat sit amet, vestibulum 
++id, iaculis at, lectus. Fusce tortor libero, congue ut, euismod nec, luctus 
++eget, eros. Pellentesque tortor enim, feugiat in, dignissim eget, tristique 
++sed, mauris. Pellentesque habitant morbi tristique senectus et netus et 
++malesuada fames ac turpis egestas. Quisque sit amet libero. In hac habitasse 
++platea dictumst.
+\ No newline at end of file
+Index: test/fixtures/mail_handler/message_invalid_user_email.eml
+===================================================================
+--- test/fixtures/mail_handler/message_invalid_user_email.eml	(revision 0)
++++ test/fixtures/mail_handler/message_invalid_user_email.eml	(revision 0)
+@@ -0,0 +1,25 @@
++Return-Path: <not_a_valid_user_email@somenet.foo>
++Received: from osiris ([127.0.0.1])
++	by OSIRIS
++	with hMailServer ; Sun, 28 Jun 2008 09:28:07 +0200
++Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
++From: "John Doe" <not_a_valid_user_email@somenet.foo>
++To: <redmine@somenet.foo>
++Subject: [eCookbook - Discussion] Message from an unauthorized user
++Date: Sun, 28 Jun 2008 09:28:07 +0200
++MIME-Version: 1.0
++Content-Type: text/plain;
++	format=flowed;
++	charset="iso-8859-1";
++	reply-type=original
++Content-Transfer-Encoding: 7bit
++X-Priority: 3
++X-MSMail-Priority: Normal
++X-Mailer: Microsoft Outlook Express 6.00.2900.2869
++X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
++
++Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
++turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
++blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
++sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
++in urna sed tellus aliquet lobortis.
+\ No newline at end of file
+Index: test/fixtures/mail_handler/message_reply.eml
+===================================================================
+--- test/fixtures/mail_handler/message_reply.eml	(revision 0)
++++ test/fixtures/mail_handler/message_reply.eml	(revision 0)
+@@ -0,0 +1,31 @@
++Return-Path: <jsmith@somenet.foo>
++Received: from osiris ([127.0.0.1])
++	by OSIRIS
++	with hMailServer ; Sun, 22 Jun 2008 12:28:07 +0200
++Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
++From: "John Smith" <jsmith@somenet.foo>
++To: <redmine@somenet.foo>
++Subject: Re: [eCookbook - Help] First post
++Date: Mon, 7 Jun 2008 10:28:07 +0200
++MIME-Version: 1.0
++Content-Type: text/plain;
++	format=flowed;
++	charset="iso-8859-1";
++	reply-type=original
++Content-Transfer-Encoding: 7bit
++X-Priority: 3
++X-MSMail-Priority: Normal
++X-Mailer: Microsoft Outlook Express 6.00.2900.2869
++X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
++
++Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
++turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
++blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
++sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
++in urna sed tellus aliquet lobortis. Morbi scelerisque tortor in dolor. Cras 
++sagittis odio eu lacus. Aliquam sem tortor, consequat sit amet, vestibulum 
++id, iaculis at, lectus. Fusce tortor libero, congue ut, euismod nec, luctus 
++eget, eros. Pellentesque tortor enim, feugiat in, dignissim eget, tristique 
++sed, mauris. Pellentesque habitant morbi tristique senectus et netus et 
++malesuada fames ac turpis egestas. Quisque sit amet libero. In hac habitasse 
++platea dictumst.
+\ No newline at end of file
+Index: test/fixtures/mail_handler/unsupported_email.eml
+===================================================================
+--- test/fixtures/mail_handler/unsupported_email.eml	(revision 0)
++++ test/fixtures/mail_handler/unsupported_email.eml	(revision 0)
+@@ -0,0 +1,25 @@
++Return-Path: <jsmith@somenet.foo>
++Received: from osiris ([127.0.0.1])
++	by OSIRIS
++	with hMailServer ; Sun, 28 Jun 2008 09:28:07 +0200
++Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
++From: "John Smith" <jsmith@somenet.foo>
++To: <redmine@somenet.foo>
++Subject: Unsupported email from valid user
++Date: Sun, 28 Jun 2008 09:28:07 +0200
++MIME-Version: 1.0
++Content-Type: text/plain;
++	format=flowed;
++	charset="iso-8859-1";
++	reply-type=original
++Content-Transfer-Encoding: 7bit
++X-Priority: 3
++X-MSMail-Priority: Normal
++X-Mailer: Microsoft Outlook Express 6.00.2900.2869
++X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
++
++Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
++turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
++blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
++sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
++in urna sed tellus aliquet lobortis.
+\ No newline at end of file
+Index: test/fixtures/mail_handler/message_invalid_project.eml
+===================================================================
+--- test/fixtures/mail_handler/message_invalid_project.eml	(revision 0)
++++ test/fixtures/mail_handler/message_invalid_project.eml	(revision 0)
+@@ -0,0 +1,25 @@
++Return-Path: <jsmith@somenet.foo>
++Received: from osiris ([127.0.0.1])
++	by OSIRIS
++	with hMailServer ; Sun, 28 Jun 2008 09:28:07 +0200
++Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
++From: "John Smith" <jsmith@somenet.foo>
++To: <redmine@somenet.foo>
++Subject: [Bad Project Name - Discussion] Message to an invalid project
++Date: Sun, 28 Jun 2008 09:28:07 +0200
++MIME-Version: 1.0
++Content-Type: text/plain;
++	format=flowed;
++	charset="iso-8859-1";
++	reply-type=original
++Content-Transfer-Encoding: 7bit
++X-Priority: 3
++X-MSMail-Priority: Normal
++X-Mailer: Microsoft Outlook Express 6.00.2900.2869
++X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
++
++Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
++turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
++blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
++sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
++in urna sed tellus aliquet lobortis.
+\ No newline at end of file
+Index: test/fixtures/mail_handler/message_invalid_board.eml
+===================================================================
+--- test/fixtures/mail_handler/message_invalid_board.eml	(revision 0)
++++ test/fixtures/mail_handler/message_invalid_board.eml	(revision 0)
+@@ -0,0 +1,25 @@
++Return-Path: <jsmith@somenet.foo>
++Received: from osiris ([127.0.0.1])
++	by OSIRIS
++	with hMailServer ; Sun, 28 Jun 2008 09:28:07 +0200
++Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
++From: "John Smith" <jsmith@somenet.foo>
++To: <redmine@somenet.foo>
++Subject: [eCookbook - Invalid Board Name] Message to an invalid project
++Date: Sun, 28 Jun 2008 09:28:07 +0200
++MIME-Version: 1.0
++Content-Type: text/plain;
++	format=flowed;
++	charset="iso-8859-1";
++	reply-type=original
++Content-Transfer-Encoding: 7bit
++X-Priority: 3
++X-MSMail-Priority: Normal
++X-Mailer: Microsoft Outlook Express 6.00.2900.2869
++X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
++
++Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
++turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
++blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
++sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
++in urna sed tellus aliquet lobortis.
+\ No newline at end of file
+Index: app/models/mail_handler.rb
+===================================================================
+--- app/models/mail_handler.rb	(revision 1648)
++++ app/models/mail_handler.rb	(working copy)
+@@ -51,10 +51,19 @@
+   private
+ 
+   ISSUE_REPLY_SUBJECT_RE = %r{\[[^\]]+#(\d+)\]}
++  FORUM_MESSAGE_SUBJECT = %r{(\[.*)(#.*\])}
++  FORUM_MESSAGE_SUBJECT_RE = %r{re: }i
++  FORUM_MESSAGE_SUBJECT_SPLIT = %r{(\[)(.*)( - )(.*)(\])}
+   
+   def dispatch
+     if m = email.subject.match(ISSUE_REPLY_SUBJECT_RE)
+       receive_issue_update(m[1].to_i)
++    elsif !email.subject.match(FORUM_MESSAGE_SUBJECT) && email.subject.match(/\[/)
++      if email.subject.match(FORUM_MESSAGE_SUBJECT_RE)
++        receive_forum_message_reply
++      else
++        receive_forum_message
++      end
+     else
+       receive_issue
+     end
+@@ -89,15 +98,58 @@
+     issue
+   end
+   
++  # Creates a new forum message
++  def receive_forum_message
++    project = target_project
++    board = target_board
++    # check permission
++    raise UnauthorizedAction unless user.allowed_to?(:edit_messages, project)
++    message = Message.new(:author => user, :board => board)
++    message.subject = email.subject.split(FORUM_MESSAGE_SUBJECT_SPLIT)[6].strip
++    message.content = email.plain_text_body.chomp
++    message.save!
++    logger.info "MailHandler: message ##{message.id} - #{message.subject} created by #{user}" if logger && logger.info
++    #Mailer.deliver_message_posted(message) if Setting.notified_events.include?('message_posted')
++    message
++  end
++   
++  # Creates a reply to an existing forum message
++  def receive_forum_message_reply
++    project = target_project
++    board = target_board
++    # check permission
++    raise UnauthorizedAction unless user.allowed_to?(:edit_messages, project)
++    message = Message.new(:author => user, :board => board)
++    subject = email.subject.split(FORUM_MESSAGE_SUBJECT_SPLIT)[6].gsub(FORUM_MESSAGE_SUBJECT_RE, "").strip
++    message.parent_id = Message.find(:first, 
++                                     :conditions => [ "board_id = ? AND subject = ?",
++                                     board, subject ],
++                                     :order => "created_on DESC").id
++    message.subject = "Re: " + subject
++    message.content = email.plain_text_body.chomp
++    message.save!
++    logger.info "MailHandler: message ##{message.id} - #{message.subject} created by #{user} in reply to message ##{message.parent_id}" if logger && logger.info
++    #Mailer.deliver_message_posted(message) if Setting.notified_events.include?('message_posted')
++    message
++  end
++  
+   def target_project
+     # TODO: other ways to specify project:
+     # * parse the email To field
+     # * specific project (eg. Setting.mail_handler_target_project)
+-    target = Project.find_by_identifier(get_keyword(:project))
++    unless target = Project.find_by_identifier(get_keyword(:project))
++      target = Project.find_by_name(email.subject.split(FORUM_MESSAGE_SUBJECT_SPLIT)[2])
++    end
+     raise MissingInformation.new('Unable to determine target project') if target.nil?
+     target
+   end
+   
++  def target_board
++    target = Board.find_by_name(email.subject.split(FORUM_MESSAGE_SUBJECT_SPLIT)[4].strip)
++    raise MissingInformation.new('Unable to determine target board/forum') if target.nil?
++    target
++  end
++  
+   # Adds a note to an existing issue
+   def receive_issue_update(issue_id)
+     issue = Issue.find_by_id(issue_id)
+Index: app/models/mailer.rb
+===================================================================
+--- app/models/mailer.rb	(revision 1648)
++++ app/models/mailer.rb	(working copy)
+@@ -99,6 +99,7 @@
+   def message_posted(message, recipients)
+     redmine_headers 'Project' => message.project.identifier,
+                     'Topic-Id' => (message.parent_id || message.id)
++    from Setting.forum_mail_from unless Setting.forum_mail_from.empty?
+     recipients(recipients)
+     subject "[#{message.board.project.name} - #{message.board.name}] #{message.subject}"
+     body :message => message,
+Index: app/views/settings/_notifications.rhtml
+===================================================================
+--- app/views/settings/_notifications.rhtml	(revision 1648)
++++ app/views/settings/_notifications.rhtml	(working copy)
+@@ -5,6 +5,9 @@
+ <p><label><%= l(:setting_mail_from) %></label>
+ <%= text_field_tag 'settings[mail_from]', Setting.mail_from, :size => 60 %></p>
+ 
++<p><label><%= l(:setting_forum_mail_from) %></label>
++<%= text_field_tag 'settings[forum_mail_from]', Setting.forum_mail_from, :size => 60 %></p>
++
+ <p><label><%= l(:setting_bcc_recipients) %></label>
+ <%= check_box_tag 'settings[bcc_recipients]', 1, Setting.bcc_recipients? %>
+ <%= hidden_field_tag 'settings[bcc_recipients]', 0 %></p>
+Index: lang/en.yml
+===================================================================
+--- lang/en.yml	(revision 1648)
++++ lang/en.yml	(working copy)
+@@ -192,6 +192,7 @@
+ setting_attachment_max_size: Attachment max. size
+ setting_issues_export_limit: Issues export limit
+ setting_mail_from: Emission email address
++setting_forum_mail_from: Forum emission email address
+ setting_bcc_recipients: Blind carbon copy recipients (bcc)
+ setting_host_name: Host name
+ setting_text_formatting: Text formatting
+Index: config/settings.yml
+===================================================================
+--- config/settings.yml	(revision 1648)
++++ config/settings.yml	(working copy)
+@@ -44,6 +44,8 @@
+   default: '25,50,100'
+ mail_from:
+   default: redmine@somenet.foo
++forum_mail_from:
++  default: ""
+ bcc_recipients:
+   default: 1
+ text_formatting:

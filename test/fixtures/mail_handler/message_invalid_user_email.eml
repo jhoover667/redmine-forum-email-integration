@@ -1,0 +1,25 @@
+Return-Path: <not_a_valid_user_email@somenet.foo>
+Received: from osiris ([127.0.0.1])
+	by OSIRIS
+	with hMailServer ; Sun, 28 Jun 2008 09:28:07 +0200
+Message-ID: <000501c8d452$a95cd7e0$0a00a8c0@osiris>
+From: "John Doe" <not_a_valid_user_email@somenet.foo>
+To: <redmine@somenet.foo>
+Subject: [eCookbook - Discussion] Message from an unauthorized user
+Date: Sun, 28 Jun 2008 09:28:07 +0200
+MIME-Version: 1.0
+Content-Type: text/plain;
+	format=flowed;
+	charset="iso-8859-1";
+	reply-type=original
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+X-MSMail-Priority: Normal
+X-Mailer: Microsoft Outlook Express 6.00.2900.2869
+X-MimeOLE: Produced By Microsoft MimeOLE V6.00.2900.2869
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas imperdiet 
+turpis et odio. Integer eget pede vel dolor euismod varius. Phasellus 
+blandit eleifend augue. Nulla facilisi. Duis id diam. Class aptent taciti 
+sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In 
+in urna sed tellus aliquet lobortis.

@@ -1,0 +1,84 @@
+***************
+*** 26,32 ****
+                     :trackers,
+                     :projects_trackers,
+                     :enumerations,
+-                    :issue_categories
+    
+    FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures/mail_handler'
+    
+--- 26,33 ----
+                     :trackers,
+                     :projects_trackers,
+                     :enumerations,
++                    :issue_categories,
++                    :boards
+    
+    FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures/mail_handler'
+    
+***************
+*** 97,103 ****
+      assert_equal Issue.find(2), journal.journalized
+      assert_equal 'This is reply', journal.notes
+    end
+  
+    private
+    
+    def submit_email(filename, options={})
+--- 98,153 ----
+      assert_equal Issue.find(2), journal.journalized
+      assert_equal 'This is reply', journal.notes
+    end
++   
++   def test_add_forum_message
++     # This email subject contains: [eCookbook - Discussion] A new message on a forum
++     message = submit_email('message_on_given_project.eml')
++     assert message.is_a?(Message)
++     assert !message.new_record?
++     message.reload
++     assert_equal 'A new message on a forum', message.subject
++     assert_equal User.find_by_login('jsmith'), message.author
++     assert_equal Board.find(2), message.board
++     assert message.content.include?('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.')
++   end
++   
++   def test_add_forum_message_reply
++     # This email subject contains: Re: [eCookbook - Help] First post
++     message = submit_email('message_reply.eml')
++     assert message.is_a?(Message)
++     assert !message.new_record?
++     message.reload
++     assert_equal 'Re: First post', message.subject
++     assert_equal User.find_by_login('jsmith'), message.author
++     assert_equal Board.find(1), message.board
++     assert_equal Message.find(1).id, message.parent_id
++     assert message.content.include?('Lorem ipsum dolor sit amet, consectetuer adipiscing elit.')
++   end
++   
++   def test_reject_invalid_message_project
++     # This email subject contains: [Bad Project Name - Discussion]
++     message = submit_email('message_invalid_project.eml')
++     assert !message
++   end
++   
++   def test_reject_invalid_message_board
++     # This email subject contains: [eCookbook - Invalid Board Name]
++     message = submit_email('message_invalid_board.eml')
++     assert !message
++   end
++   
++   def test_reject_invalid_user_email
++     # This email is from: not_a_valid_user_email@somenet.foo
++     message = submit_email('message_invalid_user_email.eml')
++     assert !message
++   end
+  
++   def test_reject_unsupported_email
++     # This email is from a valid user but has no content for an issue or message
++     message = submit_email('unsupported_email.eml')
++     assert !message
++   end
++   
+    private
+    
+    def submit_email(filename, options={})

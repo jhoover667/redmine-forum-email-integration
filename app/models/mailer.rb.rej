@@ -1,0 +1,16 @@
+***************
+*** 99,104 ****
+    def message_posted(message, recipients)
+      redmine_headers 'Project' => message.project.identifier,
+                      'Topic-Id' => (message.parent_id || message.id)
+      recipients(recipients)
+      subject "[#{message.board.project.name} - #{message.board.name}] #{message.subject}"
+      body :message => message,
+--- 99,105 ----
+    def message_posted(message, recipients)
+      redmine_headers 'Project' => message.project.identifier,
+                      'Topic-Id' => (message.parent_id || message.id)
++     from Setting.forum_mail_from unless Setting.forum_mail_from.empty?
+      recipients(recipients)
+      subject "[#{message.board.project.name} - #{message.board.name}] #{message.subject}"
+      body :message => message,
